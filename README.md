@@ -1,4 +1,4 @@
-# MiApp — sitio de descargas (APK + PDF)
+# PDF-SV — sitio de descargas (APK + PDF)
 
 Sitio **100% estático** (HTML/CSS/JS, sin backend) para distribuir un APK y un PDF.
 Diseño tipo iLovePDF. Se publica en Netlify y se actualiza de dos formas:
@@ -86,6 +86,6 @@ Haz `git push` de ese cambio una sola vez. A partir de ahí:
 
 ## Personalizar
 
-- Nombre y textos: edita `index.html` (busca `MiApp`).
+- Nombre y textos: edita `index.html` (busca `PDF-SV`).
 - Color principal: variable CSS `--red` al inicio de `<style>`.
 - Icono: SVG embebido en `<link rel="icon">`.

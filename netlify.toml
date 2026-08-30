@@ -6,6 +6,7 @@
   command = ""
 
 # El .apk debe servirse con su tipo MIME correcto y forzar la descarga.
+# (el patrón cubre cualquier .apk en downloads/, p. ej. pdfsv.apk)
 [[headers]]
   for = "/downloads/*.apk"
   [headers.values]

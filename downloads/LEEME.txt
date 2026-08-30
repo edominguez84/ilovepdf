@@ -1,6 +1,6 @@
 Coloca aquí los dos archivos que publica la página, con ESTOS nombres exactos:
 
-  app.apk          -> la aplicación Android
+  pdfsv.apk        -> la aplicación Android
   documento.pdf    -> la documentación
 
 Si quieres usar otros nombres, cámbialos también en index.html

@@ -12,7 +12,7 @@ descarga-app/
 ├── netlify.toml                Config de Netlify (MIME del APK, noindex del panel)
 ├── .gitignore
 ├── downloads/
-│   ├── app.apk                 <-- tu APK  (nombre exacto)
+│   ├── pdfsv.apk               <-- tu APK  (nombre exacto)
 │   └── documento.pdf           <-- tu PDF  (nombre exacto)
 └── panel-9k4m2xqz/
     └── index.html              Panel privado para subir APK / PDF
@@ -23,7 +23,7 @@ descarga-app/
 ## 1. Probar en local
 
 Con Laragon: `http://descarga-app.test` o abre `index.html` en el navegador.
-Copia tu APK y tu PDF en `downloads/` con los nombres `app.apk` y `documento.pdf`
+Copia tu APK y tu PDF en `downloads/` con los nombres `pdfsv.apk` y `documento.pdf`
 (o cambia los nombres en `index.html` **y** en `netlify.toml`).
 
 ---
@@ -42,7 +42,7 @@ Copia tu APK y tu PDF en `downloads/` con los nombres `app.apk` y `documento.pdf
 ### Opción A — terminal
 
 ```bash
-# reemplaza downloads/app.apk y/o downloads/documento.pdf
+# reemplaza downloads/pdfsv.apk y/o downloads/documento.pdf
 git add .
 git commit -m "APK v1.3"
 git push

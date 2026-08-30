@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Descarga MiApp — APK y documentación</title>
+  <meta name="description" content="Descarga la última versión del APK de MiApp y su documentación en PDF.">
+
+  <!-- Open Graph (para que se vea bien al compartir el enlace) -->
+  <meta property="og:title" content="Descarga MiApp">
+  <meta property="og:description" content="Última versión del APK y su documentación en PDF.">
+  <meta property="og:type" content="website">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23E5322D'/%3E%3Cpath d='M16 7l7 7-2.2 2.2L17 12.4V25h-2V12.4l-3.8 3.8L9 14z' fill='white'/%3E%3C/svg%3E">
+
+  <style>
+    :root{
+      --red:#E5322D;
+      --red-dark:#C82420;
+      --ink:#2F2F37;
+      --muted:#6E6E7A;
+      --bg:#F6F6F8;
+      --card:#FFFFFF;
+      --border:#E7E7EF;
+      --radius:14px;
+      --shadow:0 1px 2px rgba(20,20,40,.04), 0 12px 32px rgba(20,20,40,.06);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      color:var(--ink);
+      background:var(--bg);
+      line-height:1.55;
+      -webkit-font-smoothing:antialiased;
+    }
+    a{color:inherit}
+    .wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+
+    /* Header */
+    header{
+      background:var(--card);
+      border-bottom:1px solid var(--border);
+    }
+    .bar{display:flex;align-items:center;justify-content:space-between;height:64px}
+    .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;text-decoration:none}
+    .logo .mark{
+      width:30px;height:30px;border-radius:8px;background:var(--red);
+      display:grid;place-items:center;flex:none;
+    }
+    .logo .mark svg{width:18px;height:18px;fill:#fff}
+    .ghlink{font-size:14px;color:var(--muted);text-decoration:none}
+    .ghlink:hover{color:var(--ink)}
+
+    /* Hero */
+    .hero{text-align:center;padding:56px 0 24px}
+    .hero h1{font-size:34px;line-height:1.2;margin:0 0 10px}
+    .hero p{font-size:17px;color:var(--muted);margin:0 auto;max-width:560px}
+
+    /* Cards */
+    .cards{
+      display:grid;grid-template-columns:1fr 1fr;gap:20px;
+      padding:24px 0 8px;
+    }
+    .card{
+      background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+      padding:28px 24px;text-align:center;
+      box-shadow:var(--shadow);
+      display:flex;flex-direction:column;align-items:center;
+      transition:transform .15s ease, box-shadow .15s ease;
+    }
+    .card:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(20,20,40,.05),0 20px 44px rgba(20,20,40,.1)}
+    .card .icon{width:64px;height:64px;margin-bottom:16px}
+    .card h2{font-size:19px;margin:0 0 6px}
+    .card .meta{font-size:14px;color:var(--muted);margin:0 0 20px;min-height:20px}
+    .card .meta b{color:var(--ink);font-weight:600}
+
+    .btn{
+      display:inline-block;text-decoration:none;font-weight:600;font-size:15px;
+      background:var(--red);color:#fff;padding:12px 26px;border-radius:999px;
+      transition:background .15s ease;
+      border:none;cursor:pointer;
+    }
+    .btn:hover{background:var(--red-dark)}
+    .btn.secondary{
+      background:transparent;color:var(--red);border:1px solid var(--red);
+      padding:11px 22px;margin-top:10px;font-size:14px;
+    }
+    .btn.secondary:hover{background:#fff5f4}
+    .card .actions{display:flex;flex-direction:column;align-items:center;margin-top:auto}
+
+    /* Steps */
+    .steps{padding:44px 0 8px}
+    .steps h3{text-align:center;font-size:20px;margin:0 0 24px}
+    .steps ol{
+      max-width:620px;margin:0 auto;padding:0;list-style:none;
+      counter-reset:step;
+    }
+    .steps li{
+      position:relative;padding:14px 14px 14px 52px;
+      background:var(--card);border:1px solid var(--border);border-radius:10px;
+      margin-bottom:10px;font-size:15px;
+    }
+    .steps li::before{
+      counter-increment:step;content:counter(step);
+      position:absolute;left:12px;top:12px;
+      width:26px;height:26px;border-radius:50%;
+      background:var(--red);color:#fff;font-size:13px;font-weight:700;
+      display:grid;place-items:center;
+    }
+
+    /* Footer */
+    footer{
+      text-align:center;color:var(--muted);font-size:13px;
+      padding:40px 20px 48px;
+    }
+    footer a{color:var(--muted)}
+
+    @media (max-width:640px){
+      .cards{grid-template-columns:1fr}
+      .hero{padding:40px 0 16px}
+      .hero h1{font-size:27px}
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="wrap bar">
+      <a class="logo" href="/">
+        <span class="mark">
+          <!-- flecha de descarga -->
+          <svg viewBox="0 0 24 24"><path d="M12 3v11.2l4.6-4.6L18 11l-6 6-6-6 1.4-1.4L12 14.2V3zM5 19h14v2H5z"/></svg>
+        </span>
+        MiApp
+      </a>
+      <!-- Cambia la URL por la de tu repositorio -->
+      <a class="ghlink" href="https://github.com/TU-USUARIO/TU-REPO" target="_blank" rel="noopener">Ver repositorio ↗</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <section class="hero">
+      <h1>Descarga MiApp</h1>
+      <p>La última versión de la aplicación Android y su documentación, siempre actualizadas.</p>
+    </section>
+
+    <section class="cards">
+
+      <!-- ===== APK ===== -->
+      <article class="card">
+        <svg class="icon" viewBox="0 0 24 24" fill="none">
+          <path d="M6 9h12v9a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9z" fill="#A4C639"/>
+          <path d="M7 9a5 5 0 0 1 10 0" fill="#A4C639"/>
+          <circle cx="9.5" cy="6.5" r="0.9" fill="#fff"/>
+          <circle cx="14.5" cy="6.5" r="0.9" fill="#fff"/>
+          <path d="M8.2 4.2 7 3M15.8 4.2 17 3" stroke="#A4C639" stroke-width="1.2" stroke-linecap="round"/>
+          <rect x="3.5" y="10" width="2.4" height="7" rx="1.2" fill="#A4C639"/>
+          <rect x="18.1" y="10" width="2.4" height="7" rx="1.2" fill="#A4C639"/>
+          <rect x="8.3" y="19.5" width="2.4" height="4.5" rx="1.2" fill="#A4C639"/>
+          <rect x="13.3" y="19.5" width="2.4" height="4.5" rx="1.2" fill="#A4C639"/>
+        </svg>
+        <h2>Aplicación Android</h2>
+        <p class="meta" id="apk-meta">Archivo <b>.apk</b> · toca para descargar</p>
+        <div class="actions">
+          <a class="btn" href="downloads/app.apk" download>Descargar APK</a>
+        </div>
+      </article>
+
+      <!-- ===== PDF ===== -->
+      <article class="card">
+        <svg class="icon" viewBox="0 0 24 24">
+          <path d="M6 2h8l4 4v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" fill="#E5322D"/>
+          <path d="M14 2l4 4h-4z" fill="#B71C17"/>
+          <text x="12" y="17" text-anchor="middle" font-size="6" font-weight="700" fill="#fff" font-family="Arial">PDF</text>
+        </svg>
+        <h2>Documentación</h2>
+        <p class="meta" id="pdf-meta">Guía de instalación y uso · <b>PDF</b></p>
+        <div class="actions">
+          <a class="btn" href="downloads/documento.pdf" target="_blank" rel="noopener">Abrir PDF</a>
+          <a class="btn secondary" href="downloads/documento.pdf" download>Descargar</a>
+        </div>
+      </article>
+
+    </section>
+
+    <section class="steps">
+      <h3>Cómo instalar el APK</h3>
+      <ol>
+        <li>Descarga el archivo <b>.apk</b> en tu teléfono Android con el botón de arriba.</li>
+        <li>Abre el archivo descargado. Android pedirá permiso para <b>instalar apps de orígenes desconocidos</b>: actívalo para este navegador.</li>
+        <li>Pulsa <b>Instalar</b> y espera a que termine. Ya puedes abrir MiApp desde el cajón de aplicaciones.</li>
+      </ol>
+    </section>
+
+  </main>
+
+  <footer>
+    Última actualización del sitio: <span id="site-date">—</span><br>
+    Publicado con Netlify · <a href="https://github.com/TU-USUARIO/TU-REPO" target="_blank" rel="noopener">código fuente</a>
+  </footer>
+
+  <script>
+    // Mejora progresiva: muestra tamaño y fecha reales de cada archivo.
+    // Si algo falla (archivo aún no subido, sin conexión...) se queda el texto por defecto.
+    (function () {
+      var fmt = function (bytes) {
+        if (!bytes || isNaN(bytes)) return null;
+        var mb = bytes / (1024 * 1024);
+        return mb >= 1 ? mb.toFixed(1) + ' MB' : Math.round(bytes / 1024) + ' KB';
+      };
+      var fmtDate = function (str) {
+        if (!str) return null;
+        try { return new Date(str).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }); }
+        catch (e) { return null; }
+      };
+
+      var targets = [
+        { url: 'downloads/app.apk', el: 'apk-meta', label: 'APK' },
+        { url: 'downloads/documento.pdf', el: 'pdf-meta', label: 'PDF' }
+      ];
+
+      var lastDate = null;
+
+      targets.forEach(function (t) {
+        fetch(t.url, { method: 'HEAD' }).then(function (r) {
+          if (!r.ok) return;
+          var size = fmt(r.headers.get('content-length'));
+          var date = fmtDate(r.headers.get('last-modified'));
+          var parts = [];
+          if (size) parts.push(size);
+          if (date) { parts.push('actualizado el ' + date); if (!lastDate) lastDate = date; }
+          if (parts.length) {
+            document.getElementById(t.el).innerHTML =
+              '<b>' + t.label + '</b> · ' + parts.join(' · ');
+          }
+          if (lastDate) document.getElementById('site-date').textContent = lastDate;
+        }).catch(function () { /* silencioso */ });
+      });
+
+      // fallback de fecha del sitio
+      setTimeout(function () {
+        var d = document.getElementById('site-date');
+        if (d.textContent === '—') {
+          d.textContent = new Date(document.lastModified).toLocaleDateString('es-ES',
+            { day: 'numeric', month: 'long', year: 'numeric' });
+        }
+      }, 1500);
+    })();
+  </script>
+
+</body>
+</html>

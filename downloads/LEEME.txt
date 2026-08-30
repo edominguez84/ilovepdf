@@ -1,0 +1,15 @@
+Coloca aquí los dos archivos que publica la página, con ESTOS nombres exactos:
+
+  app.apk          -> la aplicación Android
+  documento.pdf    -> la documentación
+
+Si quieres usar otros nombres, cámbialos también en index.html
+(en los atributos href="downloads/...") y en netlify.toml.
+
+Para actualizar la app en el futuro: reemplaza estos archivos,
+haz "git add . && git commit -m 'nueva version' && git push"
+y Netlify desplegará solo en 1-2 minutos.
+
+NOTA sobre el tamaño del APK (25-100 MB):
+GitHub avisa a partir de 50 MB y RECHAZA cualquier archivo de más de 100 MB.
+Si tu APK supera los 100 MB, ver la sección "APK grande" del README.md.

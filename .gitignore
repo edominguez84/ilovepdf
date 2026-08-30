@@ -1,0 +1,8 @@
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+
+# NO ignoramos downloads/app.apk ni downloads/documento.pdf:
+# esos SÍ deben subirse al repositorio para que Netlify los publique.

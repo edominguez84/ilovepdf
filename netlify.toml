@@ -1,0 +1,21 @@
+# Configuración de Netlify para un sitio 100% estático (sin build).
+
+[build]
+  # No hay compilación: se publica la carpeta tal cual.
+  publish = "."
+  command = ""
+
+# El .apk debe servirse con su tipo MIME correcto y forzar la descarga.
+[[headers]]
+  for = "/downloads/*.apk"
+  [headers.values]
+    Content-Type = "application/vnd.android.package-archive"
+    Content-Disposition = "attachment"
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# El PDF se abre en el navegador; sin caché agresiva para que se vea la última versión.
+[[headers]]
+  for = "/downloads/*.pdf"
+  [headers.values]
+    Content-Type = "application/pdf"
+    Cache-Control = "public, max-age=0, must-revalidate"

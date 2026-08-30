@@ -19,3 +19,10 @@
   [headers.values]
     Content-Type = "application/pdf"
     Cache-Control = "public, max-age=0, must-revalidate"
+
+# Panel privado de subida: fuera de buscadores y sin caché.
+[[headers]]
+  for = "/panel-9k4m2xqz/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+    Cache-Control = "no-store"

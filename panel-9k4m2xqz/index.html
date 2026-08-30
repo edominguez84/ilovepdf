@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Panel privado · Subir APK / PDF</title>
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23333'/%3E%3Cpath d='M16 7a5 5 0 0 0-5 5v3H9v11h14V15h-2v-3a5 5 0 0 0-5-5zm-3 8v-3a3 3 0 0 1 6 0v3z' fill='white'/%3E%3C/svg%3E">
+
+  <style>
+    :root{
+      --red:#e5322d; --red-dark:#c5271f;
+      --ink:#33333b; --muted:#7a7a86; --line:#e7e7ec;
+      --ok:#1f9d57; --err:#d33; --bg-soft:#f7f7f9;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      color:var(--ink); background:var(--bg-soft); line-height:1.6;
+      -webkit-font-smoothing:antialiased;
+    }
+    .wrap{max-width:680px;margin:0 auto;padding:40px 20px 80px}
+    h1{font-size:22px;margin:0 0 4px}
+    .sub{color:var(--muted);font-size:14px;margin:0 0 28px}
+    .card{
+      background:#fff;border:1px solid var(--line);border-radius:12px;
+      padding:22px;margin-bottom:20px;
+    }
+    .card h2{font-size:15px;margin:0 0 14px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+    label{display:block;font-size:13px;font-weight:600;margin:0 0 6px}
+    input[type=password],input[type=text]{
+      width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:9px;
+      font-size:15px;font-family:inherit;
+    }
+    input:focus{outline:2px solid #f0c9c7;border-color:var(--red)}
+    .btn{
+      display:inline-block;border:none;cursor:pointer;font-family:inherit;
+      font-weight:600;font-size:14px;color:#fff;background:var(--red);
+      padding:11px 22px;border-radius:999px;transition:background .15s;
+    }
+    .btn:hover{background:var(--red-dark)}
+    .btn[disabled]{opacity:.5;cursor:not-allowed}
+    .btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+    .btn.ghost:hover{background:var(--bg-soft);color:var(--ink)}
+    .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .hint{font-size:12.5px;color:var(--muted);margin-top:8px}
+    .hint a{color:var(--red)}
+    .drop{
+      border:2px dashed var(--line);border-radius:12px;padding:26px 18px;text-align:center;
+      color:var(--muted);font-size:14px;transition:border-color .15s,background .15s;cursor:pointer;
+    }
+    .drop.over{border-color:var(--red);background:#fff4f3;color:var(--ink)}
+    .drop strong{color:var(--ink)}
+    .file{margin-top:12px;font-size:13.5px}
+    .file b{color:var(--ink)}
+    .status{margin-top:12px;font-size:13.5px;min-height:20px;white-space:pre-wrap}
+    .status.ok{color:var(--ok)}
+    .status.err{color:var(--err)}
+    .status a{color:var(--red)}
+    .bar{height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:10px;display:none}
+    .bar > i{display:block;height:100%;width:0;background:var(--red);transition:width .2s}
+    .hidden{display:none}
+    code{background:var(--bg-soft);padding:1px 5px;border-radius:5px;font-size:12.5px}
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Panel privado</h1>
+  <p class="sub">Sube una nueva versión del APK o del PDF. Se publica en GitHub y Netlify redespliega solo en 1–2 min.</p>
+
+  <!-- ============ 1. Acceso ============ -->
+  <div class="card" id="gate">
+    <h2>Acceso</h2>
+    <label for="pass">Contraseña del panel</label>
+    <input type="password" id="pass" autocomplete="off" placeholder="••••••••">
+    <div class="row" style="margin-top:14px">
+      <button class="btn" id="enter">Entrar</button>
+    </div>
+    <p class="status err" id="gate-err"></p>
+  </div>
+
+  <!-- ============ 2. Token de GitHub ============ -->
+  <div class="card hidden" id="token-card">
+    <h2>Token de GitHub</h2>
+    <div id="token-set">
+      <label for="token">Fine-grained token con permiso <code>Contents: Read and write</code> sobre el repo <code>edominguez84/ilovepdf</code></label>
+      <input type="password" id="token" autocomplete="off" placeholder="github_pat_...">
+      <div class="row" style="margin-top:14px">
+        <button class="btn" id="save-token">Guardar token</button>
+      </div>
+      <p class="hint">
+        Se guarda solo en este navegador (localStorage). No se sube al sitio ni al repo.
+        Crea uno en <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens</a>
+        → Repository access: solo <code>ilovepdf</code> → Permissions → Contents: Read and write.
+      </p>
+    </div>
+    <div class="row hidden" id="token-ok">
+      <span class="status ok" style="margin:0">✓ Token guardado en este navegador</span>
+      <button class="btn ghost" id="clear-token">Cambiar</button>
+    </div>
+  </div>
+
+  <!-- ============ 3. Subidas ============ -->
+  <div class="card hidden" id="uploads">
+    <h2>APK — <code>downloads/app.apk</code></h2>
+    <div class="drop" data-for="apk" data-accept=".apk">Arrastra el <strong>.apk</strong> aquí o haz clic para elegirlo</div>
+    <input type="file" class="hidden" id="apk-input" accept=".apk">
+    <p class="file hidden" id="apk-file"></p>
+    <div class="bar" id="apk-bar"><i></i></div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn" id="apk-up" disabled>Publicar APK</button>
+    </div>
+    <p class="status" id="apk-status"></p>
+  </div>
+
+  <div class="card hidden" id="uploads2">
+    <h2>PDF — <code>downloads/documento.pdf</code></h2>
+    <div class="drop" data-for="pdf" data-accept=".pdf">Arrastra el <strong>.pdf</strong> aquí o haz clic para elegirlo</div>
+    <input type="file" class="hidden" id="pdf-input" accept=".pdf,application/pdf">
+    <p class="file hidden" id="pdf-file"></p>
+    <div class="bar" id="pdf-bar"><i></i></div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn" id="pdf-up" disabled>Publicar PDF</button>
+    </div>
+    <p class="status" id="pdf-status"></p>
+  </div>
+
+  <p class="hint" style="text-align:center">
+    <a href="https://app.netlify.com/projects/pdf-sv/deploys" target="_blank" rel="noopener">Ver despliegues en Netlify ↗</a>
+  </p>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // ─────────────────────────────────────────────────────────────
+  //  CONFIGURACIÓN  — cambia SOLO estas dos líneas
+  // ─────────────────────────────────────────────────────────────
+  var PANEL_PASS = "CAMBIA-ESTA-CLAVE";          // contraseña para abrir el panel
+  var REPO       = "edominguez84/ilovepdf";      // owner/repo
+  var BRANCH     = "main";
+  // ─────────────────────────────────────────────────────────────
+
+  var API = "https://api.github.com";
+  var LS_TOKEN = "ilovepdf_gh_token";
+  var LS_AUTH  = "ilovepdf_panel_ok";
+
+  var $ = function (id) { return document.getElementById(id); };
+  var show = function (el) { el.classList.remove("hidden"); };
+  var hide = function (el) { el.classList.add("hidden"); };
+
+  // ---------- 1. Acceso ----------
+  function unlock() {
+    hide($("gate"));
+    show($("token-card"));
+    show($("uploads"));
+    show($("uploads2"));
+    refreshTokenUI();
+  }
+  $("enter").addEventListener("click", function () {
+    if ($("pass").value === PANEL_PASS) {
+      try { sessionStorage.setItem(LS_AUTH, "1"); } catch (e) {}
+      unlock();
+    } else {
+      $("gate-err").textContent = "Contraseña incorrecta.";
+    }
+  });
+  $("pass").addEventListener("keydown", function (e) { if (e.key === "Enter") $("enter").click(); });
+  try { if (sessionStorage.getItem(LS_AUTH) === "1") unlock(); } catch (e) {}
+
+  // ---------- 2. Token ----------
+  function getToken() {
+    try { return localStorage.getItem(LS_TOKEN) || ""; } catch (e) { return ""; }
+  }
+  function refreshTokenUI() {
+    var has = !!getToken();
+    if (has) { hide($("token-set")); show($("token-ok")); }
+    else     { show($("token-set")); hide($("token-ok")); }
+    updateButtons();
+  }
+  $("save-token").addEventListener("click", function () {
+    var t = $("token").value.trim();
+    if (!t) return;
+    try { localStorage.setItem(LS_TOKEN, t); } catch (e) {}
+    $("token").value = "";
+    refreshTokenUI();
+  });
+  $("clear-token").addEventListener("click", function () {
+    try { localStorage.removeItem(LS_TOKEN); } catch (e) {}
+    refreshTokenUI();
+  });
+
+  // ---------- 3. Selección de archivos ----------
+  var picked = { apk: null, pdf: null };
+
+  function wireDrop(kind, dropSel) {
+    var drop  = document.querySelector('.drop[data-for="' + kind + '"]');
+    var input = $(kind + "-input");
+    drop.addEventListener("click", function () { input.click(); });
+    drop.addEventListener("dragover", function (e) { e.preventDefault(); drop.classList.add("over"); });
+    drop.addEventListener("dragleave", function () { drop.classList.remove("over"); });
+    drop.addEventListener("drop", function (e) {
+      e.preventDefault(); drop.classList.remove("over");
+      if (e.dataTransfer.files.length) setFile(kind, e.dataTransfer.files[0]);
+    });
+    input.addEventListener("change", function () {
+      if (input.files.length) setFile(kind, input.files[0]);
+    });
+  }
+  wireDrop("apk");
+  wireDrop("pdf");
+
+  function fmtSize(b) {
+    var mb = b / 1048576;
+    return mb >= 1 ? mb.toFixed(1) + " MB" : Math.round(b / 1024) + " KB";
+  }
+
+  function setFile(kind, file) {
+    var ext = kind === "apk" ? ".apk" : ".pdf";
+    if (file.name.toLowerCase().slice(-ext.length) !== ext) {
+      setStatus(kind, "El archivo debe terminar en " + ext, "err");
+      return;
+    }
+    picked[kind] = file;
+    var el = $(kind + "-file");
+    el.innerHTML = "Seleccionado: <b>" + file.name + "</b> (" + fmtSize(file.size) + ")";
+    show(el);
+    setStatus(kind, file.size > 95 * 1048576
+      ? "⚠ " + fmtSize(file.size) + ": GitHub rechaza archivos de más de 100 MB por esta vía."
+      : (file.size > 40 * 1048576 ? "Archivo grande: la subida puede tardar 1–2 min." : ""),
+      file.size > 95 * 1048576 ? "err" : "");
+    updateButtons();
+  }
+
+  function updateButtons() {
+    var ready = !!getToken();
+    $("apk-up").disabled = !(ready && picked.apk);
+    $("pdf-up").disabled = !(ready && picked.pdf);
+  }
+
+  function setStatus(kind, msg, cls) {
+    var el = $(kind + "-status");
+    el.className = "status" + (cls ? " " + cls : "");
+    el.innerHTML = msg || "";
+  }
+  function setBar(kind, pct) {
+    var bar = $(kind + "-bar");
+    bar.style.display = pct == null ? "none" : "block";
+    if (pct != null) bar.firstElementChild.style.width = pct + "%";
+  }
+
+  // ---------- 4. Subida vía Git Data API ----------
+  function ghFetch(path, opts) {
+    opts = opts || {};
+    opts.headers = Object.assign({
+      "Authorization": "Bearer " + getToken(),
+      "Accept": "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2022-11-28"
+    }, opts.headers || {});
+    return fetch(API + path, opts).then(function (r) {
+      return r.text().then(function (txt) {
+        var body = txt ? JSON.parse(txt) : {};
+        if (!r.ok) {
+          var m = body.message || r.statusText;
+          if (r.status === 401) m = "Token inválido o sin permisos (401).";
+          if (r.status === 403) m = "Sin permiso 'Contents: write' sobre el repo (403).";
+          if (r.status === 404) m = "Repo o rama no encontrados (404): " + REPO + " / " + BRANCH;
+          throw new Error(m);
+        }
+        return body;
+      });
+    });
+  }
+
+  function fileToBase64(file, onProgress) {
+    return new Promise(function (resolve, reject) {
+      var fr = new FileReader();
+      fr.onprogress = function (e) { if (e.lengthComputable && onProgress) onProgress(e.loaded / e.total); };
+      fr.onload = function () { resolve(String(fr.result).split(",")[1]); };
+      fr.onerror = function () { reject(new Error("No se pudo leer el archivo.")); };
+      fr.readAsDataURL(file);
+    });
+  }
+
+  function upload(kind, destPath) {
+    var file = picked[kind];
+    if (!file) return;
+    $(kind + "-up").disabled = true;
+    setBar(kind, 5);
+    setStatus(kind, "Leyendo archivo…", "");
+
+    fileToBase64(file, function (p) { setBar(kind, 5 + Math.round(p * 35)); })
+      .then(function (b64) {
+        setBar(kind, 45); setStatus(kind, "Obteniendo estado del repo…", "");
+        return ghFetch("/repos/" + REPO + "/git/ref/heads/" + BRANCH).then(function (ref) {
+          var parent = ref.object.sha;
+          return ghFetch("/repos/" + REPO + "/git/commits/" + parent).then(function (c) {
+            setBar(kind, 55); setStatus(kind, "Subiendo contenido…", "");
+            return ghFetch("/repos/" + REPO + "/git/blobs", {
+              method: "POST",
+              body: JSON.stringify({ content: b64, encoding: "base64" })
+            }).then(function (blob) {
+              setBar(kind, 75); setStatus(kind, "Creando commit…", "");
+              return ghFetch("/repos/" + REPO + "/git/trees", {
+                method: "POST",
+                body: JSON.stringify({
+                  base_tree: c.tree.sha,
+                  tree: [{ path: destPath, mode: "100644", type: "blob", sha: blob.sha }]
+                })
+              }).then(function (tree) {
+                return ghFetch("/repos/" + REPO + "/git/commits", {
+                  method: "POST",
+                  body: JSON.stringify({
+                    message: "Actualizar " + destPath + " desde el panel",
+                    tree: tree.sha,
+                    parents: [parent]
+                  })
+                });
+              }).then(function (commit) {
+                setBar(kind, 92); setStatus(kind, "Publicando…", "");
+                return ghFetch("/repos/" + REPO + "/git/refs/heads/" + BRANCH, {
+                  method: "PATCH",
+                  body: JSON.stringify({ sha: commit.sha })
+                }).then(function () { return commit; });
+              });
+            });
+          });
+        });
+      })
+      .then(function (commit) {
+        setBar(kind, 100);
+        setStatus(kind,
+          "✓ Publicado. <a href=\"" + commit.html_url + "\" target=\"_blank\" rel=\"noopener\">Ver commit</a>. " +
+          "Netlify redesplegará en 1–2 min · " +
+          "<a href=\"https://app.netlify.com/projects/pdf-sv/deploys\" target=\"_blank\" rel=\"noopener\">ver despliegue</a>.",
+          "ok");
+        setTimeout(function () { setBar(kind, null); }, 1200);
+      })
+      .catch(function (err) {
+        setBar(kind, null);
+        setStatus(kind, "✗ " + (err && err.message ? err.message : err), "err");
+        $(kind + "-up").disabled = false;
+      });
+  }
+
+  $("apk-up").addEventListener("click", function () { upload("apk", "downloads/app.apk"); });
+  $("pdf-up").addEventListener("click", function () { upload("pdf", "downloads/documento.pdf"); });
+})();
+</script>
+</body>
+</html>

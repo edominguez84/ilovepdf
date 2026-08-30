@@ -4,12 +4,18 @@ Coloca aquí los dos archivos que publica la página, con ESTOS nombres exactos:
   documento.pdf    -> la documentación
 
 Si quieres usar otros nombres, cámbialos también en index.html
-(en los atributos href="downloads/...") y en netlify.toml.
+(atributos href="downloads/...") y en netlify.toml.
 
-Para actualizar la app en el futuro: reemplaza estos archivos,
-haz "git add . && git commit -m 'nueva version' && git push"
-y Netlify desplegará solo en 1-2 minutos.
+Dos formas de actualizarlos:
 
-NOTA sobre el tamaño del APK (25-100 MB):
-GitHub avisa a partir de 50 MB y RECHAZA cualquier archivo de más de 100 MB.
-Si tu APK supera los 100 MB, ver la sección "APK grande" del README.md.
+  1. Terminal:  reemplaza los archivos y haz
+     git add . && git commit -m "nueva version" && git push
+
+  2. Panel privado (sin terminal):
+     abre  https://<tu-sitio>.netlify.app/panel-9k4m2xqz/
+     (ver README.md -> "Opción B - panel privado")
+
+Netlify redespliega solo en 1-2 minutos.
+
+Tamaño del APK: GitHub RECHAZA archivos de más de 100 MB.
+Si tu APK supera los 100 MB, usa GitHub Releases (ver README.md).

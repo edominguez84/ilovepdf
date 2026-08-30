@@ -1,74 +1,45 @@
-# Descarga MiApp
+# MiApp — sitio de descargas (APK + PDF)
 
-Sitio estático (solo HTML/CSS) para distribuir un **APK** y un **PDF**.
-Sin backend. Se publica en Netlify y se actualiza haciendo `git push`.
+Sitio **100% estático** (HTML/CSS/JS, sin backend) para distribuir un APK y un PDF.
+Diseño tipo iLovePDF. Se publica en Netlify y se actualiza de dos formas:
+
+- **`git push`** a `main` (lo de siempre), o
+- desde el **panel privado** en una URL secreta, sin tocar la terminal.
 
 ```
 descarga-app/
-├── index.html            La página
-├── netlify.toml          Config de Netlify (tipos MIME, descarga del APK)
+├── index.html                  La página pública
+├── netlify.toml                Config de Netlify (MIME del APK, noindex del panel)
 ├── .gitignore
-└── downloads/
-    ├── app.apk           <-- pon aquí tu APK
-    └── documento.pdf     <-- pon aquí tu PDF
+├── downloads/
+│   ├── app.apk                 <-- tu APK  (nombre exacto)
+│   └── documento.pdf           <-- tu PDF  (nombre exacto)
+└── panel-9k4m2xqz/
+    └── index.html              Panel privado para subir APK / PDF
 ```
 
 ---
 
-## 1. Probar en local con Laragon
+## 1. Probar en local
 
-El proyecto ya está en `C:\laragon\www\descarga-app`.
-
-- Con Laragon abierto: **Menu → www → descarga-app**, o entra a
-  `http://descarga-app.test` / `http://localhost/descarga-app`.
-- Al ser HTML puro también sirve abrir `index.html` directo en el navegador,
-  pero con Laragon las rutas se comportan igual que en Netlify.
-
-Copia tu APK y tu PDF dentro de `downloads/` con los nombres
-`app.apk` y `documento.pdf` (o cambia los nombres en `index.html` y `netlify.toml`).
+Con Laragon: `http://descarga-app.test` o abre `index.html` en el navegador.
+Copia tu APK y tu PDF en `downloads/` con los nombres `app.apk` y `documento.pdf`
+(o cambia los nombres en `index.html` **y** en `netlify.toml`).
 
 ---
 
-## 2. Subir a GitHub
+## 2. GitHub + Netlify
 
-Dentro de la carpeta del proyecto:
-
-```bash
-git init
-git add .
-git commit -m "Sitio de descarga inicial"
-git branch -M main
-```
-
-Crea un repositorio **vacío** en https://github.com/new (sin README), y luego:
-
-```bash
-git remote add origin https://github.com/TU-USUARIO/TU-REPO.git
-git push -u origin main
-```
-
-Edita en `index.html` las dos líneas con `https://github.com/TU-USUARIO/TU-REPO`
-para que apunten a tu repo real (o bórralas si no quieres el enlace).
+- Repo: <https://github.com/edominguez84/ilovepdf>
+- Netlify: proyecto **pdf-sv**, ya conectado al repo.
+  Cada `git push` a `main` dispara un despliegue automático (1–2 min).
+- Panel de despliegues: <https://app.netlify.com/projects/pdf-sv/deploys>
 
 ---
 
-## 3. Conectar Netlify (despliegue automático desde GitHub)
+## 3. Actualizar el APK o el PDF
 
-1. Entra a https://app.netlify.com → **Add new site → Import an existing project**.
-2. Elige **GitHub** y autoriza. Selecciona tu repositorio.
-3. Configuración de build:
-   - **Build command:** *(vacío)*
-   - **Publish directory:** `.` (o `descarga-app` si el repo tiene más carpetas)
-   - Netlify ya lee `netlify.toml`, así que normalmente no tocas nada.
-4. **Deploy site.**
-
-A partir de ahí, **cada `git push` a `main` dispara un despliegue** automático.
-Puedes cambiar el nombre del sitio en *Site configuration → Change site name*
-para tener `https://mi-app.netlify.app`.
-
----
-
-## 4. Actualizar el APK o el PDF más adelante
+### Opción A — terminal
 
 ```bash
 # reemplaza downloads/app.apk y/o downloads/documento.pdf
@@ -77,30 +48,44 @@ git commit -m "APK v1.3"
 git push
 ```
 
-Netlify redepliega en 1–2 minutos. La página muestra sola el tamaño y la
-fecha reales de cada archivo (lee las cabeceras con una petición HEAD).
+### Opción B — panel privado (sin terminal)
+
+URL secreta: **`https://<tu-sitio>.netlify.app/panel-9k4m2xqz/`**
+(no está enlazada desde ninguna parte y lleva cabecera `noindex`).
+
+Primera vez, configura dos cosas en `panel-9k4m2xqz/index.html`:
+
+```js
+var PANEL_PASS = "CAMBIA-ESTA-CLAVE";       // pon tu contraseña
+var REPO       = "edominguez84/ilovepdf";   // ya está bien
+```
+
+Haz `git push` de ese cambio una sola vez. A partir de ahí:
+
+1. Abre la URL secreta e introduce la contraseña.
+2. Pega **una vez** un *fine-grained token* de GitHub con permiso
+   **Contents: Read and write** sobre el repo `ilovepdf`
+   (<https://github.com/settings/personal-access-tokens/new>).
+   El token se guarda **solo en tu navegador** (localStorage); no se sube al sitio.
+3. Arrastra el `.apk` o el `.pdf` y pulsa *Publicar*.
+   El panel hace un commit en `main` y Netlify redespliega solo.
+
+> **Por qué el token no va escrito en la página:** el sitio servido es público
+> (cualquiera con la URL vería el token en el código y GitHub lo revocaría al
+> instante). Pegándolo una vez por navegador queda igual de cómodo y sin ese riesgo.
 
 ---
 
-## APK grande
+## Tamaño del APK
 
-- **< 50 MB:** sin problema.
-- **50–100 MB:** GitHub lo acepta pero muestra un aviso. Funciona.
-  Ten en cuenta que cada versión antigua queda en el historial de git y
-  el repo va creciendo. Si molesta, más adelante se puede limpiar el
-  historial (BFG Repo-Cleaner) o empezar un repo nuevo.
-- **> 100 MB:** GitHub **rechaza** el `push`. Opciones:
-  1. **GitHub Releases:** sube el APK como *asset* de un Release y cambia
-     el `href` del botón en `index.html` por la URL del release. El APK
-     ya no vive en el repo y no hay límite práctico.
-  2. **Git LFS:** `git lfs track "*.apk"`. Netlify soporta LFS, pero hay
-     que configurarlo con cuidado; para un solo archivo suele ser más
-     simple la opción de Releases.
+- **< 100 MB:** funciona por ambas vías (terminal y panel).
+- **> 100 MB:** GitHub lo rechaza. Usa **GitHub Releases**: sube el APK como
+  *asset* de un Release y cambia el `href` del botón en `index.html` por esa URL.
 
 ---
 
 ## Personalizar
 
-- Nombre y textos: edita `index.html` (busca "MiApp").
-- Color: variables CSS `--red` / `--red-dark` al principio de `<style>`.
-- Favicon: es un SVG embebido en el `<link rel="icon">`.
+- Nombre y textos: edita `index.html` (busca `MiApp`).
+- Color principal: variable CSS `--red` al inicio de `<style>`.
+- Icono: SVG embebido en `<link rel="icon">`.

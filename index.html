@@ -3,124 +3,140 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Descarga MiApp — APK y documentación</title>
-  <meta name="description" content="Descarga la última versión del APK de MiApp y su documentación en PDF.">
+  <title>MiApp — Descarga la app y la documentación</title>
+  <meta name="description" content="Descarga la última versión del APK de MiApp y su documentación en PDF. Siempre actualizado.">
 
-  <!-- Open Graph (para que se vea bien al compartir el enlace) -->
-  <meta property="og:title" content="Descarga MiApp">
+  <meta property="og:title" content="MiApp — Descargas">
   <meta property="og:description" content="Última versión del APK y su documentación en PDF.">
   <meta property="og:type" content="website">
 
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23E5322D'/%3E%3Cpath d='M16 7l7 7-2.2 2.2L17 12.4V25h-2V12.4l-3.8 3.8L9 14z' fill='white'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23E5322D'/%3E%3Cpath d='M16 24s-7-4.35-7-9.5A3.5 3.5 0 0 1 16 12a3.5 3.5 0 0 1 7 2.5C23 19.65 16 24 16 24z' fill='white'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --red:#E5322D;
-      --red-dark:#C82420;
-      --ink:#2F2F37;
-      --muted:#6E6E7A;
-      --bg:#F6F6F8;
-      --card:#FFFFFF;
-      --border:#E7E7EF;
-      --radius:14px;
-      --shadow:0 1px 2px rgba(20,20,40,.04), 0 12px 32px rgba(20,20,40,.06);
+      --red:#e5322d;
+      --red-dark:#c5271f;
+      --ink:#33333b;
+      --muted:#7a7a86;
+      --line:#e7e7ec;
+      --bg:#ffffff;
+      --bg-soft:#f7f7f9;
+      --radius:9px;
+      --shadow-hover:0 14px 34px rgba(20,20,45,.12);
     }
     *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
     html,body{margin:0}
     body{
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
       color:var(--ink);
       background:var(--bg);
-      line-height:1.55;
+      line-height:1.6;
       -webkit-font-smoothing:antialiased;
     }
-    a{color:inherit}
-    .wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
 
-    /* Header */
+    /* ---------- Header ---------- */
     header{
-      background:var(--card);
-      border-bottom:1px solid var(--border);
+      position:sticky;top:0;z-index:50;
+      background:rgba(255,255,255,.88);
+      backdrop-filter:saturate(180%) blur(10px);
+      border-bottom:1px solid var(--line);
     }
-    .bar{display:flex;align-items:center;justify-content:space-between;height:64px}
-    .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;text-decoration:none}
+    .bar{display:flex;align-items:center;justify-content:space-between;height:70px}
+    .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:-.02em}
     .logo .mark{
-      width:30px;height:30px;border-radius:8px;background:var(--red);
+      width:34px;height:34px;border-radius:9px;background:var(--red);
       display:grid;place-items:center;flex:none;
     }
-    .logo .mark svg{width:18px;height:18px;fill:#fff}
-    .ghlink{font-size:14px;color:var(--muted);text-decoration:none}
-    .ghlink:hover{color:var(--ink)}
+    .logo .mark svg{width:20px;height:20px;fill:#fff}
+    .logo b{color:var(--red)}
+    .nav{display:flex;align-items:center;gap:28px}
+    .nav a{font-size:15px;font-weight:500;color:var(--muted)}
+    .nav a:hover{color:var(--ink)}
+    .nav .cta{
+      font-weight:600;color:#fff;background:var(--red);
+      padding:9px 18px;border-radius:999px;
+    }
+    .nav .cta:hover{background:var(--red-dark)}
+    @media (max-width:720px){ .nav a:not(.cta){display:none} }
 
-    /* Hero */
-    .hero{text-align:center;padding:56px 0 24px}
-    .hero h1{font-size:34px;line-height:1.2;margin:0 0 10px}
-    .hero p{font-size:17px;color:var(--muted);margin:0 auto;max-width:560px}
+    /* ---------- Hero ---------- */
+    .hero{text-align:center;padding:76px 0 30px}
+    .hero h1{
+      font-size:clamp(30px,5.2vw,48px);line-height:1.12;
+      font-weight:800;letter-spacing:-.03em;margin:0 0 16px;
+    }
+    .hero h1 span{color:var(--red)}
+    .hero p{font-size:clamp(16px,2.2vw,19px);color:var(--muted);margin:0 auto;max-width:640px}
 
-    /* Cards */
-    .cards{
-      display:grid;grid-template-columns:1fr 1fr;gap:20px;
-      padding:24px 0 8px;
+    /* ---------- Tool grid ---------- */
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:22px;
+      padding:34px 0 12px;
     }
-    .card{
-      background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
-      padding:28px 24px;text-align:center;
-      box-shadow:var(--shadow);
-      display:flex;flex-direction:column;align-items:center;
-      transition:transform .15s ease, box-shadow .15s ease;
+    .tool{
+      display:flex;flex-direction:column;
+      background:var(--bg);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:28px 24px 24px;
+      transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
     }
-    .card:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(20,20,40,.05),0 20px 44px rgba(20,20,40,.1)}
-    .card .icon{width:64px;height:64px;margin-bottom:16px}
-    .card h2{font-size:19px;margin:0 0 6px}
-    .card .meta{font-size:14px;color:var(--muted);margin:0 0 20px;min-height:20px}
-    .card .meta b{color:var(--ink);font-weight:600}
+    .tool:hover{transform:translateY(-5px);box-shadow:var(--shadow-hover);border-color:transparent}
+    .tool .ico{width:52px;height:52px;margin-bottom:16px}
+    .tool h3{font-size:18px;font-weight:700;margin:0 0 6px;letter-spacing:-.01em}
+    .tool p{font-size:14px;color:var(--muted);margin:0 0 20px;flex:1}
+    .tool .go{
+      align-self:flex-start;font-weight:600;font-size:14px;color:#fff;
+      background:var(--red);padding:10px 20px;border-radius:999px;
+    }
+    .tool:hover .go{background:var(--red-dark)}
+    .tool .go.ghost{background:transparent;color:var(--red);border:1px solid #f0c9c7}
+    .tool:hover .go.ghost{background:#fff4f3}
+    .tool .extra{margin-top:10px;font-size:13px;color:var(--muted)}
+    .tool .extra a{color:var(--red);font-weight:600}
 
-    .btn{
-      display:inline-block;text-decoration:none;font-weight:600;font-size:15px;
-      background:var(--red);color:#fff;padding:12px 26px;border-radius:999px;
-      transition:background .15s ease;
-      border:none;cursor:pointer;
+    /* ---------- Steps ---------- */
+    .section{padding:60px 0 10px}
+    .section h2{text-align:center;font-size:clamp(22px,3.4vw,30px);font-weight:800;letter-spacing:-.02em;margin:0 0 8px}
+    .section .lead{text-align:center;color:var(--muted);margin:0 auto 34px;max-width:560px}
+    .steps{max-width:720px;margin:0 auto;display:grid;gap:14px}
+    .step{
+      position:relative;background:var(--bg-soft);
+      border:1px solid var(--line);border-radius:12px;
+      padding:18px 20px 18px 60px;font-size:15px;
     }
-    .btn:hover{background:var(--red-dark)}
-    .btn.secondary{
-      background:transparent;color:var(--red);border:1px solid var(--red);
-      padding:11px 22px;margin-top:10px;font-size:14px;
-    }
-    .btn.secondary:hover{background:#fff5f4}
-    .card .actions{display:flex;flex-direction:column;align-items:center;margin-top:auto}
-
-    /* Steps */
-    .steps{padding:44px 0 8px}
-    .steps h3{text-align:center;font-size:20px;margin:0 0 24px}
-    .steps ol{
-      max-width:620px;margin:0 auto;padding:0;list-style:none;
-      counter-reset:step;
-    }
-    .steps li{
-      position:relative;padding:14px 14px 14px 52px;
-      background:var(--card);border:1px solid var(--border);border-radius:10px;
-      margin-bottom:10px;font-size:15px;
-    }
-    .steps li::before{
-      counter-increment:step;content:counter(step);
-      position:absolute;left:12px;top:12px;
-      width:26px;height:26px;border-radius:50%;
-      background:var(--red);color:#fff;font-size:13px;font-weight:700;
+    .step::before{
+      content:counter(s);counter-increment:s;
+      position:absolute;left:16px;top:16px;
+      width:30px;height:30px;border-radius:50%;
+      background:var(--red);color:#fff;font-weight:700;font-size:14px;
       display:grid;place-items:center;
     }
+    .steps{counter-reset:s}
+    .note{
+      max-width:720px;margin:22px auto 0;font-size:13.5px;color:var(--muted);
+      background:#fff8f0;border:1px solid #f5e2c9;border-radius:12px;padding:14px 18px;
+    }
 
-    /* Footer */
+    /* ---------- Footer ---------- */
     footer{
-      text-align:center;color:var(--muted);font-size:13px;
-      padding:40px 20px 48px;
+      margin-top:70px;background:var(--bg-soft);border-top:1px solid var(--line);
+      padding:48px 0 30px;color:var(--muted);font-size:14px;
     }
-    footer a{color:var(--muted)}
-
-    @media (max-width:640px){
-      .cards{grid-template-columns:1fr}
-      .hero{padding:40px 0 16px}
-      .hero h1{font-size:27px}
-    }
+    .fcols{display:flex;flex-wrap:wrap;gap:40px 64px;margin-bottom:32px}
+    .fcol h4{color:var(--ink);font-size:14px;font-weight:700;margin:0 0 12px;text-transform:uppercase;letter-spacing:.04em}
+    .fcol a{display:block;margin-bottom:8px}
+    .fcol a:hover{color:var(--red)}
+    .fbottom{border-top:1px solid var(--line);padding-top:20px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;font-size:13px}
   </style>
 </head>
 <body>
@@ -129,124 +145,176 @@
     <div class="wrap bar">
       <a class="logo" href="/">
         <span class="mark">
-          <!-- flecha de descarga -->
-          <svg viewBox="0 0 24 24"><path d="M12 3v11.2l4.6-4.6L18 11l-6 6-6-6 1.4-1.4L12 14.2V3zM5 19h14v2H5z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-10-9.2C.4 8.6 2.3 5 5.8 5 8 5 10 6.3 12 8.6 14 6.3 16 5 18.2 5 21.7 5 23.6 8.6 22 11.8 19.5 16.4 12 21 12 21z"/></svg>
         </span>
-        MiApp
+        <span>Mi<b>App</b></span>
       </a>
-      <!-- Cambia la URL por la de tu repositorio -->
-      <a class="ghlink" href="https://github.com/edominguez84/ilovepdf" target="_blank" rel="noopener">Ver repositorio ↗</a>
+      <nav class="nav">
+        <a href="#descargas">Descargas</a>
+        <a href="#instalar">Cómo instalar</a>
+        <a href="https://github.com/edominguez84/ilovepdf" target="_blank" rel="noopener">Repositorio</a>
+        <a class="cta" href="#descargas">Descargar ahora</a>
+      </nav>
     </div>
   </header>
 
-  <main class="wrap">
+  <main>
 
-    <section class="hero">
-      <h1>Descarga MiApp</h1>
-      <p>La última versión de la aplicación Android y su documentación, siempre actualizadas.</p>
+    <section class="hero wrap">
+      <h1>Todo lo que necesitas de <span>MiApp</span>,<br>en un mismo lugar</h1>
+      <p>Descarga la última versión de la aplicación Android y su documentación en PDF. Siempre actualizado, sin registros.</p>
     </section>
 
-    <section class="cards">
+    <section class="grid wrap" id="descargas">
 
       <!-- ===== APK ===== -->
-      <article class="card">
-        <svg class="icon" viewBox="0 0 24 24" fill="none">
-          <path d="M6 9h12v9a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9z" fill="#A4C639"/>
-          <path d="M7 9a5 5 0 0 1 10 0" fill="#A4C639"/>
-          <circle cx="9.5" cy="6.5" r="0.9" fill="#fff"/>
-          <circle cx="14.5" cy="6.5" r="0.9" fill="#fff"/>
-          <path d="M8.2 4.2 7 3M15.8 4.2 17 3" stroke="#A4C639" stroke-width="1.2" stroke-linecap="round"/>
-          <rect x="3.5" y="10" width="2.4" height="7" rx="1.2" fill="#A4C639"/>
-          <rect x="18.1" y="10" width="2.4" height="7" rx="1.2" fill="#A4C639"/>
-          <rect x="8.3" y="19.5" width="2.4" height="4.5" rx="1.2" fill="#A4C639"/>
-          <rect x="13.3" y="19.5" width="2.4" height="4.5" rx="1.2" fill="#A4C639"/>
+      <article class="tool">
+        <svg class="ico" viewBox="0 0 48 48" fill="none">
+          <rect x="10" y="18" width="28" height="21" rx="3" fill="#3ddc84"/>
+          <path d="M14 18a10 10 0 0 1 20 0z" fill="#3ddc84"/>
+          <circle cx="19" cy="13" r="1.6" fill="#fff"/>
+          <circle cx="29" cy="13" r="1.6" fill="#fff"/>
+          <path d="M16 8l-3-3M32 8l3-3" stroke="#3ddc84" stroke-width="2.4" stroke-linecap="round"/>
+          <rect x="4" y="20" width="4.5" height="14" rx="2.25" fill="#3ddc84"/>
+          <rect x="39.5" y="20" width="4.5" height="14" rx="2.25" fill="#3ddc84"/>
+          <rect x="17" y="39" width="4.5" height="9" rx="2.25" fill="#3ddc84"/>
+          <rect x="26.5" y="39" width="4.5" height="9" rx="2.25" fill="#3ddc84"/>
         </svg>
-        <h2>Aplicación Android</h2>
-        <p class="meta" id="apk-meta">Archivo <b>.apk</b> · toca para descargar</p>
-        <div class="actions">
-          <a class="btn" href="downloads/app.apk" download>Descargar APK</a>
-        </div>
+        <h3>Aplicación Android</h3>
+        <p id="apk-meta">Archivo <b>.apk</b> listo para instalar en tu teléfono.</p>
+        <a class="go" href="downloads/app.apk" download>Descargar APK</a>
       </article>
 
       <!-- ===== PDF ===== -->
-      <article class="card">
-        <svg class="icon" viewBox="0 0 24 24">
-          <path d="M6 2h8l4 4v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" fill="#E5322D"/>
-          <path d="M14 2l4 4h-4z" fill="#B71C17"/>
-          <text x="12" y="17" text-anchor="middle" font-size="6" font-weight="700" fill="#fff" font-family="Arial">PDF</text>
+      <article class="tool">
+        <svg class="ico" viewBox="0 0 48 48" fill="none">
+          <path d="M12 4h16l8 8v28a4 4 0 0 1-4 4H12a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4z" fill="#e5322d"/>
+          <path d="M28 4l8 8h-8z" fill="#b5231f"/>
+          <text x="24" y="33" text-anchor="middle" font-size="11" font-weight="800" fill="#fff" font-family="Inter,Arial">PDF</text>
         </svg>
-        <h2>Documentación</h2>
-        <p class="meta" id="pdf-meta">Guía de instalación y uso · <b>PDF</b></p>
-        <div class="actions">
-          <a class="btn" href="downloads/documento.pdf" target="_blank" rel="noopener">Abrir PDF</a>
-          <a class="btn secondary" href="downloads/documento.pdf" download>Descargar</a>
-        </div>
+        <h3>Documentación</h3>
+        <p id="pdf-meta">Guía de instalación y uso en formato <b>PDF</b>.</p>
+        <a class="go" href="downloads/documento.pdf" target="_blank" rel="noopener">Abrir PDF</a>
+        <span class="extra"><a href="downloads/documento.pdf" download>Descargar copia</a></span>
+      </article>
+
+      <!-- ===== Instalación ===== -->
+      <article class="tool">
+        <svg class="ico" viewBox="0 0 48 48" fill="none">
+          <rect x="6" y="6" width="36" height="36" rx="6" fill="#2f7bf6"/>
+          <path d="M15 24l6 6 12-13" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h3>Cómo instalar</h3>
+        <p>Pasos para instalar el APK en Android cuando descargas fuera de Play Store.</p>
+        <a class="go ghost" href="#instalar">Ver pasos</a>
+      </article>
+
+      <!-- ===== Repositorio ===== -->
+      <article class="tool">
+        <svg class="ico" viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="20" fill="#24292f"/>
+          <path d="M24 10c-7.7 0-14 6.3-14 14 0 6.2 4 11.4 9.6 13.3.7.1 1-.3 1-.7v-2.5c-3.9.8-4.7-1.9-4.7-1.9-.6-1.6-1.5-2-1.5-2-1.3-.9.1-.9.1-.9 1.4.1 2.1 1.4 2.1 1.4 1.2 2.1 3.2 1.5 4 1.1.1-.9.5-1.5.9-1.9-3.1-.4-6.4-1.6-6.4-7 0-1.5.6-2.8 1.4-3.8-.1-.4-.6-1.8.2-3.8 0 0 1.2-.4 3.9 1.4a13.4 13.4 0 0 1 7 0c2.7-1.8 3.9-1.4 3.9-1.4.8 2 .3 3.4.2 3.8.9 1 1.4 2.3 1.4 3.8 0 5.4-3.3 6.6-6.4 7 .5.4 1 1.3 1 2.6v3.8c0 .4.3.8 1 .7A14 14 0 0 0 38 24c0-7.7-6.3-14-14-14z" fill="#fff"/>
+        </svg>
+        <h3>Código fuente</h3>
+        <p>El sitio se publica solo desde GitHub cada vez que se sube una versión nueva.</p>
+        <a class="go ghost" href="https://github.com/edominguez84/ilovepdf" target="_blank" rel="noopener">Abrir repositorio</a>
       </article>
 
     </section>
 
-    <section class="steps">
-      <h3>Cómo instalar el APK</h3>
-      <ol>
-        <li>Descarga el archivo <b>.apk</b> en tu teléfono Android con el botón de arriba.</li>
-        <li>Abre el archivo descargado. Android pedirá permiso para <b>instalar apps de orígenes desconocidos</b>: actívalo para este navegador.</li>
-        <li>Pulsa <b>Instalar</b> y espera a que termine. Ya puedes abrir MiApp desde el cajón de aplicaciones.</li>
-      </ol>
+    <section class="section wrap" id="instalar">
+      <h2>Cómo instalar el APK</h2>
+      <p class="lead">Solo la primera vez tendrás que permitir la instalación desde tu navegador.</p>
+      <div class="steps">
+        <div class="step">Descarga el archivo <b>.apk</b> en tu teléfono Android con el botón <b>Descargar APK</b>.</div>
+        <div class="step">Abre el archivo descargado. Android pedirá permiso para <b>instalar apps de orígenes desconocidos</b>: actívalo para este navegador.</div>
+        <div class="step">Pulsa <b>Instalar</b> y espera a que termine. Ya puedes abrir <b>MiApp</b> desde el cajón de aplicaciones.</div>
+        <div class="step">Para actualizar en el futuro, vuelve a esta página y descarga la versión más reciente encima de la anterior.</div>
+      </div>
+      <p class="note">💡 Si aparece una advertencia de Play Protect, es normal en apps que no vienen de la tienda: elige <b>Instalar de todas formas</b> si confías en el origen.</p>
     </section>
 
   </main>
 
   <footer>
-    Última actualización del sitio: <span id="site-date">—</span><br>
-    Publicado con Netlify · <a href="https://github.com/edominguez84/ilovepdf" target="_blank" rel="noopener">código fuente</a>
+    <div class="wrap">
+      <div class="fcols">
+        <div class="fcol">
+          <h4>MiApp</h4>
+          <a href="#descargas">Descargar APK</a>
+          <a href="downloads/documento.pdf" target="_blank" rel="noopener">Documentación PDF</a>
+          <a href="#instalar">Cómo instalar</a>
+        </div>
+        <div class="fcol">
+          <h4>Proyecto</h4>
+          <a href="https://github.com/edominguez84/ilovepdf" target="_blank" rel="noopener">Repositorio en GitHub</a>
+          <a href="https://github.com/edominguez84/ilovepdf/commits/main" target="_blank" rel="noopener">Historial de versiones</a>
+        </div>
+        <div class="fcol">
+          <h4>Estado</h4>
+          <a>APK: <span id="apk-state">comprobando…</span></a>
+          <a>PDF: <span id="pdf-state">comprobando…</span></a>
+        </div>
+      </div>
+      <div class="fbottom">
+        <span>Última actualización del sitio: <span id="site-date">—</span></span>
+        <span>Publicado con Netlify</span>
+      </div>
+    </div>
   </footer>
 
   <script>
-    // Mejora progresiva: muestra tamaño y fecha reales de cada archivo.
-    // Si algo falla (archivo aún no subido, sin conexión...) se queda el texto por defecto.
+    // Mejora progresiva: pide por HEAD el tamaño y la fecha reales de cada archivo.
+    // Si el archivo aún no se ha subido, se deja el texto por defecto.
     (function () {
-      var fmt = function (bytes) {
+      var fmtSize = function (bytes) {
         if (!bytes || isNaN(bytes)) return null;
         var mb = bytes / (1024 * 1024);
         return mb >= 1 ? mb.toFixed(1) + ' MB' : Math.round(bytes / 1024) + ' KB';
       };
       var fmtDate = function (str) {
         if (!str) return null;
-        try { return new Date(str).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }); }
-        catch (e) { return null; }
+        try {
+          return new Date(str).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+        } catch (e) { return null; }
       };
 
       var targets = [
-        { url: 'downloads/app.apk', el: 'apk-meta', label: 'APK' },
-        { url: 'downloads/documento.pdf', el: 'pdf-meta', label: 'PDF' }
+        { url: 'downloads/app.apk',       meta: 'apk-meta', state: 'apk-state', label: 'APK', base: 'Archivo <b>.apk</b> listo para instalar en tu teléfono.' },
+        { url: 'downloads/documento.pdf', meta: 'pdf-meta', state: 'pdf-state', label: 'PDF', base: 'Guía de instalación y uso en formato <b>PDF</b>.' }
       ];
 
       var lastDate = null;
 
       targets.forEach(function (t) {
-        fetch(t.url, { method: 'HEAD' }).then(function (r) {
-          if (!r.ok) return;
-          var size = fmt(r.headers.get('content-length'));
+        fetch(t.url, { method: 'HEAD', cache: 'no-store' }).then(function (r) {
+          var stateEl = document.getElementById(t.state);
+          if (!r.ok) { if (stateEl) stateEl.textContent = 'aún no publicado'; return; }
+
+          var size = fmtSize(r.headers.get('content-length'));
           var date = fmtDate(r.headers.get('last-modified'));
           var parts = [];
           if (size) parts.push(size);
-          if (date) { parts.push('actualizado el ' + date); if (!lastDate) lastDate = date; }
+          if (date) { parts.push('actualizado el ' + date); if (!lastDate) { lastDate = date; } }
+
           if (parts.length) {
-            document.getElementById(t.el).innerHTML =
-              '<b>' + t.label + '</b> · ' + parts.join(' · ');
+            document.getElementById(t.meta).innerHTML = t.base + '<br><small>' + parts.join(' · ') + '</small>';
           }
+          if (stateEl) stateEl.textContent = (size || 'disponible');
           if (lastDate) document.getElementById('site-date').textContent = lastDate;
-        }).catch(function () { /* silencioso */ });
+        }).catch(function () {
+          var stateEl = document.getElementById(t.state);
+          if (stateEl) stateEl.textContent = 'no disponible';
+        });
       });
 
-      // fallback de fecha del sitio
       setTimeout(function () {
         var d = document.getElementById('site-date');
         if (d.textContent === '—') {
           d.textContent = new Date(document.lastModified).toLocaleDateString('es-ES',
             { day: 'numeric', month: 'long', year: 'numeric' });
         }
-      }, 1500);
+      }, 1600);
     })();
   </script>
 

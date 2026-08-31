@@ -7,6 +7,7 @@ desktop.ini
 # NO ignoramos downloads/app.apk ni downloads/documento.pdf:
 # esos SÍ deben subirse al repositorio para que Netlify los publique.
 
-# El APK que se publica vive en downloads/app.apk. La copia suelta en la raíz
-# es solo para trabajo local y no se versiona.
+# Los archivos que se publican viven en downloads/. Las copias sueltas en la
+# raíz son solo para trabajo local y no se versionan.
 /pdfsv.apk
+/siman_calendario.pdf
